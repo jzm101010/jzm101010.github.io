@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>fis3的运行过程简略分析 | Jyc&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近几天都在看fis3的源码，虽然还有非常多没看懂的地方，但多少想尝试阐述一下在CMD里输入fis命令后发生了些什么，好帮助自己梳理一下思路，应该有很多不对的地方。。。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fis3的运行过程简略分析">
+<meta property="og:url" content="http://yoursite.com/2015/12/04/fis3/index.html">
+<meta property="og:site_name" content="Jyc's Blog">
+<meta property="og:description" content="最近几天都在看fis3的源码，虽然还有非常多没看懂的地方，但多少想尝试阐述一下在CMD里输入fis命令后发生了些什么，好帮助自己梳理一下思路，应该有很多不对的地方。。。">
+<meta property="og:image" content="http://7xiylb.com1.z0.glb.clouddn.com/fis3%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="fis3的运行过程简略分析">
+<meta name="twitter:description" content="最近几天都在看fis3的源码，虽然还有非常多没看懂的地方，但多少想尝试阐述一下在CMD里输入fis命令后发生了些什么，好帮助自己梳理一下思路，应该有很多不对的地方。。。">
+  
+    <link rel="alternative" href="/atom.xml" title="Jyc&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img lazy-src="http://7xiylb.com1.z0.glb.clouddn.com/author.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">jyc</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Keep walking, keep learning</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/jzm101010" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2851232800" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/nan-gong-ye-zhi" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="/jycworking@163.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/fis3/" style="font-size: NaNpx;">fis3</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">菜鸟一只，正在学习</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">jyc</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="http://7xiylb.com1.z0.glb.clouddn.com/author.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">jyc</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Keep walking, keep learning</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/jzm101010" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2851232800" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/nan-gong-ye-zhi" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="/jycworking@163.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-fis3" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/04/fis3/" class="article-date">
+  	<time datetime="2015-12-04T09:06:14.000Z" itemprop="datePublished">2015-12-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      fis3的运行过程简略分析
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fis3/">fis3</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>最近几天都在看fis3的源码，虽然还有非常多没看懂的地方，但多少想尝试阐述一下在CMD里输入fis命令后发生了些什么，好帮助自己梳理一下思路，应该有很多不对的地方。。</em>。<br><a id="more"></a></p>
+<p>当我们在项目根目录打开CMD，输入</p>
+<pre><code><span class="title">fis3</span> release
+</code></pre><p>此时将会调用fis3/bin/fis.js, 下面是源码（只保留了主要的部分）<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Liftoff = <span class="built_in">require</span>(<span class="string">'liftoff'</span>);</span><br><span class="line"><span class="keyword">var</span> argv = <span class="built_in">require</span>(<span class="string">'minimist'</span>)(process.argv.slice(<span class="number">2</span>));</span><br><span class="line"><span class="keyword">var</span> cli = <span class="keyword">new</span> Liftoff(&#123;</span><br><span class="line">  name: <span class="string">'fis3'</span>,</span><br><span class="line">  processTitle: <span class="string">'fis'</span>,</span><br><span class="line">  moduleName: <span class="string">'fis3'</span>,</span><br><span class="line">  configName: <span class="string">'fis-conf'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// only js supported!</span></span><br><span class="line">  extensions: &#123;</span><br><span class="line">    <span class="string">'.js'</span>: <span class="literal">null</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">cli.launch(&#123;</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">    fis.cli.run(argv,env);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，bin/fis.js中引入了liftoff和minimist，liftoff是用来构建支持多项目多配置文件的命令行工具的库，最早应用于Gulp。而minimist是一个轻量级的命令行参数解析工具。<br>所以通过调用bin/fis.js，获取到了我们所输入的命令行参数，并且通过cli.launch调用了fis.cli.run，传入参数。</p>
+<p>再来看看lib/cli.js中的cli.run<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">cli.run = <span class="function"><span class="keyword">function</span><span class="params">(argv, env)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> argvRaw = process.argv; </span><br><span class="line">  </span><br><span class="line">  ........</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (!argv._.length) &#123;</span><br><span class="line">    cli[argv.v || argv.version ? <span class="string">'version'</span> : <span class="string">'help'</span>]();</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  </span><br><span class="line">  ..........</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">var</span> commander = cli.commander = <span class="built_in">require</span>(<span class="string">'commander'</span>);</span><br><span class="line">    <span class="keyword">var</span> cmd = fis.require(<span class="string">'command'</span>, argvRaw[<span class="number">2</span>]);  <span class="comment">//引入对应的插件</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (cmd.register) &#123;</span><br><span class="line">      <span class="comment">// 兼容旧插件。</span></span><br><span class="line">      cmd.register(</span><br><span class="line">        commander</span><br><span class="line">        .command(cmd.name || first)</span><br><span class="line">        .usage(cmd.usage)</span><br><span class="line">        .description(cmd.desc)</span><br><span class="line">      );</span><br><span class="line">      commander.parse(argvRaw);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      cmd.run(argv, cli, env);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>我们输入的命令是<code>fis3 release</code>, 那么<code>process.argv</code>应该为<code>[&#39;node&#39;, &#39;/bin/fis&#39;, &#39;release&#39;, &#39;&#39;]</code>, 所以源码中的<code>argvRaw[2]</code>则为我们的具体命令’release’,通过<code>fis.require(&#39;command&#39;,argvRaw[2])</code>引入对应的插件fis3-command-release，并通过cmd.run()执行命令。</p>
+<p>来看一下fis3-command-release/index.js,<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">exports.run = <span class="function"><span class="keyword">function</span><span class="params">(argv, cli, env)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 显示帮助信息</span></span><br><span class="line">  <span class="keyword">if</span> (argv.h || argv.help) &#123;</span><br><span class="line">    <span class="keyword">return</span> cli.help(exports.name, exports.options);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 验证参数</span></span><br><span class="line">  validate(argv);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// normalize options</span></span><br><span class="line">  <span class="keyword">var</span> options = &#123;</span><br><span class="line">    dest: argv.dest || argv.d || <span class="string">'preview'</span>,</span><br><span class="line">    watch: !!(argv.watch || argv.w),</span><br><span class="line">    live: !!(argv.live || argv.L),</span><br><span class="line">    clean: !!(argv.clean || argv.c),</span><br><span class="line">    unique: !!(argv.unique || argv.u),</span><br><span class="line">    useLint: !!(argv.lint || argv.l),</span><br><span class="line">    verbose: !!argv.verbose</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// enable watch automatically when live is enabled.</span></span><br><span class="line">  options.live &amp;&amp; (options.watch = <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> app = <span class="built_in">require</span>(<span class="string">'./lib/chains.js'</span>)();</span><br><span class="line"></span><br><span class="line">  app.use(<span class="function"><span class="keyword">function</span><span class="params">(options, next)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// clear cache?</span></span><br><span class="line">    <span class="keyword">if</span> (options.clean) &#123;</span><br><span class="line">      time(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        fis.cache.clean(<span class="string">'compile'</span>);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (env.configPath) &#123;</span><br><span class="line">      <span class="comment">// fis-conf 失效？</span></span><br><span class="line">      <span class="keyword">var</span> cache = fis.cache(env.configPath, <span class="string">'conf'</span>);</span><br><span class="line">      <span class="keyword">if</span>(!cache.revert())&#123;</span><br><span class="line">        cache.save();</span><br><span class="line">        time(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">          fis.cache.clean(<span class="string">'compile'</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    next(<span class="literal">null</span>, options);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// watch it?</span></span><br><span class="line">  options.watch &amp;&amp; app.use(watch);</span><br><span class="line">  app.use(release);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 处理 livereload 脚本</span></span><br><span class="line">  app.use(livereload.handleReloadComment);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// deliver</span></span><br><span class="line">  app.use(<span class="function"><span class="keyword">function</span><span class="params">(info, next)</span> </span>&#123;</span><br><span class="line">    fis.log.debug(<span class="string">'deploy start'</span>);</span><br><span class="line">    deploy(info, <span class="function"><span class="keyword">function</span><span class="params">(error)</span> </span>&#123;</span><br><span class="line">      fis.log.debug(<span class="string">'deploy end'</span>);</span><br><span class="line">      next(error, info);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  options.live &amp;&amp; app.use(livereload.checkReload);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// run it.</span></span><br><span class="line">  app.run(options);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>没什么好说的，注释已经比较清楚了，实例化一个options对象，通过内部方法判断是否清除缓存、监听等，由app.use()添加。</p>
+<p>接下来的编译阶段可以看一下这张图<br><img src="http://7xiylb.com1.z0.glb.clouddn.com/fis3%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B.png" alt="fis3编译流程图"></p>
+<p>通过lib/project.js中的getSource()方法，获取项目目录中需要编译的文件集合，并将各个文件实例化为File对象后依次编译。若文件的编译缓存还存在，直接读取缓存，加速编译过程；若不存在，则按lint -&gt; parser -&gt; preprocessor -&gt; standard -&gt; postprocessor -&gt; optimizer流程依次编译。<br>值得注意的是，通过在fis-config.js文件中配置插件属性，这六个流程对我们来说是完全可控的，不仅如此，我们也可以在fis-config.js中配置文件属性。通过配置fis-config文件， 我们能非常轻松简单地决定文件在编译阶段如何被处理，这也是<strong>fis3相对于fis2最大的变革</strong>。<br>当所有文件编译完成后，通过回调lib/release.js中的cb函数来获取我们设置的package配置，进行打包处理,  最终完成部署。</p>
+<hr>
+<p>参考文章：</p>
+<ul>
+<li><a href="http://imweb.io/topic/55d066859399a4ab7d796c93" target="_blank" rel="external">fis3 文档学习研究</a></li>
+<li><a href="http://imweb.io/topic/554c5aec774cd7180d08e715" target="_blank" rel="external">FIS源码解析-整体架构</a></li>
+<li><a href="http://imweb.io/topic/554c5b7a774cd7180d08e717" target="_blank" rel="external">FIS源码-fisrelease概览</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/05/06/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="fis3" data-title="fis3的运行过程简略分析" data-url="http://yoursite.com/2015/12/04/fis3/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"jyc"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 jyc
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>
